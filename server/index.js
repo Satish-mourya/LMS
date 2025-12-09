@@ -12,7 +12,10 @@ const app=express();
 // middleware
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors());  // need to give origin 
+app.use(cors({
+    origin:"http://localhost:5173",
+    credentials:true
+}));  // need to give origin 
 // database connection
 
 connectDB()
