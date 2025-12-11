@@ -11,7 +11,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { act, useEffect, useState } from "react";
+import {  useEffect, useState } from "react";
 import { useLoginUserMutation, useRegisterUserMutation } from "@/features/api/authApi.js";
 import { toast } from "sonner";
 const Login = () => {
@@ -57,11 +57,11 @@ const Login = () => {
         toast.error(loginData.data.message || "Login failed")
       }
       
-    }, [loginData,registerData,loginIsLoading,registerIsLoading,loginError,registerError])
+    }, [loginData,registerData,loginIsLoading,registerIsLoading,loginError,registerError,loginIsSuccess,registerIsSuccess])
     
 
   return (
-    <div className="flex w-full items-center justify-center">
+    <div className="flex w-full items-center justify-center mt-20">
       <div className="flex w-full max-w-sm flex-col gap-6">
         <Tabs defaultValue="account">
           <TabsList className="grid w-full grid-cols-2">
