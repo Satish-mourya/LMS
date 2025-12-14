@@ -24,9 +24,10 @@ import {
 } from "@/components/ui/sheet";
  
 import Darkmode from "@/Darkmode";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
-  let user = false;
+  let user = true;
   return (
     <div className="h-16 dark:-bg-[#0A0A0A] bg-white border-b dark:border-b-gray-200 fixed top-0 left-0 right-0 duration-300 z-10">
       {/* Desktop */}
@@ -50,12 +51,12 @@ const Navbar = () => {
               <DropdownMenuContent className="w-56" align="start">
                 <DropdownMenuLabel>My Account</DropdownMenuLabel>
                 <DropdownMenuGroup>
-                  <DropdownMenuItem>Profile</DropdownMenuItem>
-                  <DropdownMenuItem>Edit Profile</DropdownMenuItem>
-                  <DropdownMenuItem>Settings</DropdownMenuItem>
+                  <DropdownMenuItem ><Link to={`my-learning`}>My-Learning</Link></DropdownMenuItem>
+                  <DropdownMenuItem><Link to={`profile`}>Edit Profile</Link></DropdownMenuItem>
+                  <DropdownMenuItem>Log Out</DropdownMenuItem>
                 </DropdownMenuGroup>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>Log out</DropdownMenuItem>
+                <DropdownMenuItem>Dashboard</DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           ) : (

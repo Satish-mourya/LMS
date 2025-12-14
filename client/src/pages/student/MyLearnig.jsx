@@ -2,26 +2,24 @@ import { Skeleton } from "@/components/ui/skeleton";
 import React from "react";
 import Course from "./Course";
 
-const Courses = () => {
-  const courses=[1,2,3,4,5,6];
-  const isLoading = false;
+const MyLearnig = () => {
+  const  course= [1,2,3,4,5,6,7,8];
+  
   return (
-    <div className="bg-gray-50 ">
-      <div className="max-w-7xl mx-auto p-6 ">
-        <h2 className="font-bold text-3xl text-center mb-10">Our Courses</h2>
-       <div className="grid sm: grid-cols-1 md:grid-cols-2 lg:grid-cols-4  gap-6">
-         {isLoading ? (Array.from({length:8}).map((_,index)=>(
-            <CourseSkeleton key={index}/>
-        ))) : (
-          courses.map((courses,index) => <Course key={index}/>)
-        ) }
-       </div>
+    <div className="max-w-7xl mx-auto my-24 px-4 md:px-0 ">
+      <h1 className="font-bold text-2xl">My Learning</h1>
+      <div className="my-5">
+        <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {course.length===0
+          ?[1,2,3,4].map((_, index) => <CourseSkeleton key={index} />)
+          : course.map((index)=><Course key={index}/>)}
+        </div>
       </div>
     </div>
   );
 };
 
-export default Courses;
+export default MyLearnig;
 
 const CourseSkeleton = () => {
   return (

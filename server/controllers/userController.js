@@ -79,4 +79,48 @@ const loginUser = async (req,res)=>{
     }
 }
 
-export {loginUser,registerUser} ;
+const logoutUser = async (req,res)=>{
+    try {
+        return res.status().cookie("token","",{maxAge:0}).json({
+            message:"Logged out Succesfully",
+            success:true
+        })
+        
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            success:false,
+            message:"failed to Logout"
+        })
+        
+    }
+}
+
+const getUserProfile= async(req,res)=>{
+    try {
+        const userId=req.id;
+        // -password ->means we dont need password
+        const user=await userModel.findById(userId).select("-password");
+        if(!user){
+            return res.status(404).json({
+                success:"profile not found",
+                success:false
+
+            })
+        }
+
+        return res.status(200).json({
+            success:true,
+            user
+        })
+
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            success:false,
+            message:"failed to Logout"
+        })
+    }
+}
+
+export {loginUser,registerUser,logoutUser,getUserProfile} ;

@@ -6,6 +6,8 @@ import { createBrowserRouter } from "react-router-dom";
 import MainLayout from "./Layout/MainLayout.jsx";
 import { RouterProvider } from "react-router";
 import Courses from "./pages/student/Courses.jsx";
+import MyLearnig from "./pages/student/MyLearnig.jsx";
+import Profile from "./pages/student/Profile.jsx";
 
 const appRouter = createBrowserRouter([
   {
@@ -23,7 +25,15 @@ const appRouter = createBrowserRouter([
       {
         path: "login",
         element: <Login />,
-      }
+      },
+      {
+        path: "my-learning",
+        element: <MyLearnig />,
+      },
+      {
+        path: "profile",
+        element: <Profile/>,
+      },
     ],
   },
 ]);
