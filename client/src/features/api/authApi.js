@@ -1,49 +1,60 @@
-import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react"
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { userLoggedIn } from "../authSlice";
-const USER_API="http://localhost:3000/api/v1/user/"
+const USER_API = "http://localhost:3000/api/v1/user/";
 
-const authApi=createApi({
-    reducerPath:"authApi",
-    baseQuery:fetchBaseQuery({
-        baseUrl:USER_API,
-        credentials:"include"
+const authApi = createApi({
+  reducerPath: "authApi",
+  baseQuery: fetchBaseQuery({
+    baseUrl: USER_API,
+    credentials: "include",
+  }),
+  endpoints: (builder) => ({
+    // to post we use mutation
+    registerUser: builder.mutation({
+      query: (inputData) => ({
+        url: "register",
+        method: "POST",
+        body: inputData,
+      }),
     }),
-    endpoints:(builder)=>({
-        // to post we use mutation
-        registerUser:builder.mutation({
-            query:(inputData)=>({
-                url:"register",
-                method:"POST",
-                body:inputData
-            })
+    loginUser: builder.mutation({
+      query: (inputData) => ({
+        url: "login",
+        method: "POST",
+        body: inputData,
+      }),
+      async onQueryStarted(arg, { queryFulfilled, dispatch }) {
+        try {
+          const result = await queryFulfilled;
+          dispatch(userLoggedIn({ user: result.data.user }));
+        } catch (error) {
+          console.log(error);
+        }
+      },
+    }),
 
-        }),
-        loginUser:builder.mutation({
-            query:(inputData)=>({
-                url:"login",
-                method:"POST",
-                body:inputData
-            }),
-            async onQueryStarted(arg,{queryFulfilled,dispatch}){
-                try {
-                    const result=await queryFulfilled;
-                    dispatch(userLoggedIn({user:result.data.user}))
-                } catch (error) {
-                    console.log(error);
-                    
-                }
-            }
+    loadUser: builder.query({
+      query: () => ({
+        url: "profile",
+        method: "GET",
+      }),
+    }),
 
-        }),
+    updateUser: builder.mutation({
+      query: (formData) => ({
+        url: "profile/update",
+        method: "PUT",
+        body: formData,
+        credentials: "include",
+      }),
+    }),
+  }),
+});
 
-        loadUser:builder.query({
-            query:()=>({
-                url:"profile",
-                method:"GET"
-            })
-        })
-    })
-})
-
-export const {useRegisterUserMutation,useLoginUserMutation,useLoadUserQuery} = authApi
+export const {
+  useRegisterUserMutation,
+  useLoginUserMutation,
+  useLoadUserQuery,
+  useUpdateUserMutation
+} = authApi;
 export default authApi;
